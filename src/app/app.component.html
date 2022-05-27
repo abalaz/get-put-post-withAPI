@@ -1,12 +1,6 @@
 <form action="">
 
   <div>
-    <div>id</div>
-    <div>
-      <input [(ngModel)]="id" name="id">
-    </div>
-  </div>
-  <div>
     <div>title</div>
     <div>
       <input [(ngModel)]="title" name="title">
@@ -20,7 +14,7 @@
   </div>
   <div>
     <div>
-      <button >
+      <button (click)="add()">
         add
       </button>
     </div>
@@ -33,9 +27,25 @@
       <th></th>
     </tr>
     <tr *ngFor= "let item of listBlog">
-      <td>{{item.id}}</td>
-      <td>{{item.title}}</td>
-      <td>{{item.content}}</td>
+      <td class="id" >{{item.id}}</td>
+      <td class="title" *ngIf="editNumber !==item.id">{{item.title}}</td>
+      <td class="title" *ngIf="editNumber === item.id">
+        <input  formControlName="name" type="text" value="{{item.title}}">
+      </td>
+      <td class="content" *ngIf="editNumber !==item.id"  >{{item.content}}</td>
+      <td class="content" *ngIf="editNumber ===item.id">
+        <input  formControlName="name" type="text" value="{{item.content}}">
+      </td>
+      <td *ngIf="editNumber !==item.id">
+        <button  (click)="edit(item,item.id)" [disabled]="isEditing">
+        Edit
+        </button>
+      </td>
+      <td *ngIf="editNumber ===item.id">
+        <button  [ngClass]="isEditing? '':''" (click)="done(item)" >
+          Done
+        </button>
+      </td>
       <td>
         <button (click)="deleteMe(item.id)">
         DELETE

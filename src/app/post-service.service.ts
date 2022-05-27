@@ -12,6 +12,15 @@ export interface Blog {
   thumbnail: string;
   title: string;
 };
+export interface CreatedBlog {
+  content: string;
+  createdAt: string;
+  description: string;
+  img: string;
+  thumbnail: string;
+  title: string;
+};
+
 
 const httpOptions = {
   Headers: new HttpHeaders({'Content-Type':'application/json'})
@@ -36,7 +45,11 @@ export class PostServiceService {
     return this.http.delete(`${this.url + id}`).pipe(first());
   }
 
-  postBlogItem(blog: Blog ):Observable<any | Blog[]> {
+  postBlogItem(blog: CreatedBlog ):Observable<any | CreatedBlog> {
       return this.http.post(this.url, blog).pipe(first());
+  }
+
+  putBlogItem(blog: Blog):Observable<any | Blog>{
+    return this.http.put(this.url, blog).pipe(first());
   }
 }
